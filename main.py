@@ -4,21 +4,32 @@ import os
 import copy
 
 
-nb_line = 10
-nb_column = 20
 
-
-matrix = [[0 for j in range(nb_column)] for i in range(nb_line)]
-
-matrix[3][1] = 1
-matrix[3][2] = 1
-matrix[3][3] = 1
+matrix = None
+nb_line = None
+nb_column = None
 
 
 
+def matrix_load():
 
+	file = open('matrix.txt')
 
+	text = file.read() # text = '11111\n10100\n00001\n10101\n11111'
+	text = text.split() # text = ['11111', '10100', '00001', '10101', '11111']
+	text = [[int(k) for k in list(i)] for i in text] # text = [[1, 1, 1, 1, 1], [1, 0, 1, 0, 1], ...]
+	
+	file.close()
 
+	return text
+
+def init_matrix():
+
+	global matrix, nb_line, nb_column
+
+	matrix = matrix_load()
+	nb_line = len(matrix)
+	nb_column = len(matrix[0])
 
 def print_matrix():
 
@@ -59,7 +70,7 @@ def update_stat():
 
 
 
-
+init_matrix()
 
 while True:
 
