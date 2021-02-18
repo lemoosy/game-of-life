@@ -1,7 +1,15 @@
-
 import time
 import os
 import copy
+import pygame
+from constants import *
+from square import Square
+from pygame.locals import *
+
+
+
+pygame.init()
+screen = pygame.display.set_mode((windowX, windowY))
 
 
 
@@ -38,6 +46,14 @@ def print_matrix():
 			print(matrix[line][column], end='')
 		print()
 
+def draw_matrix():
+
+	for line in range(nb_line):
+		for column in range(nb_column):
+			if matrix[line][column] != 0:
+				my_square = Square(line * size_cellX, column * size_cellY)
+				my_square.draw(screen)
+
 def out_of_dimension(line, column):
 
 	return line < 0 or column < 0 or line >= nb_line or column >= nb_column
@@ -71,16 +87,23 @@ def update_stat():
 
 
 init_matrix()
+clock = pygame.time.Clock()
+
+
 
 while True:
 
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			pygame.quit()
+
 	old_matrix = copy.deepcopy(matrix)
-	print_matrix() # O(n**2)
-	time.sleep(1)
+	screen.fill(black)
+	draw_matrix() # O(n**2)
+	pygame.display.flip()
+	clock.tick(1)
 	update_stat() # O(n**2*9)
 	os.system('cls')
-
-
 
 
 
