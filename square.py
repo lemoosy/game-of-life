@@ -1,8 +1,5 @@
-
-
-from constants import *
+from const import *
 import pygame
-
 
 
 class Square(pygame.sprite.Sprite):
@@ -11,7 +8,7 @@ class Square(pygame.sprite.Sprite):
 
         super(Square, self).__init__()
 
-        self.surf = pygame.Surface((size_cellX, size_cellY))
+        self.surf = pygame.Surface((SIZE_CELL_X, SIZE_CELL_Y))
         self.surf.fill(red)
         self.rect = self.surf.get_rect()
         self.rect = self.rect.move(x, y)

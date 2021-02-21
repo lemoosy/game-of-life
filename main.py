@@ -1,58 +1,18 @@
-import time
-import os
 import copy
 import pygame
-from constants import *
+from const import *
 from square import Square
 from pygame.locals import *
 
 
-
 pygame.init()
-screen = pygame.display.set_mode((windowX, windowY))
+window = pygame.display.set_mode((SIZE_WINDOW_X, SIZE_WINDOW_Y))
 
 
 
 matrix = None
-nb_line = None
-nb_column = None
 
 
-
-def matrix_load():
-
-	file = open('matrix.txt')
-
-	text = file.read() # text = '11111\n10100\n00001\n10101\n11111'
-	text = text.split() # text = ['11111', '10100', '00001', '10101', '11111']
-	text = [[int(k) for k in list(i)] for i in text] # text = [[1, 1, 1, 1, 1], [1, 0, 1, 0, 1], ...]
-	
-	file.close()
-
-	return text
-
-def init_matrix():
-
-	global matrix, nb_line, nb_column
-
-	matrix = matrix_load()
-	nb_line = len(matrix)
-	nb_column = len(matrix[0])
-
-def print_matrix():
-
-	for line in range(nb_line):
-		for column in range(nb_column):
-			print(matrix[line][column], end='')
-		print()
-
-def draw_matrix():
-
-	for line in range(nb_line):
-		for column in range(nb_column):
-			if matrix[line][column] != 0:
-				my_square = Square(line * size_cellX, column * size_cellY)
-				my_square.draw(screen)
 
 def out_of_dimension(line, column):
 
@@ -91,6 +51,10 @@ clock = pygame.time.Clock()
 
 
 
+
+
+
+
 while True:
 
 	for event in pygame.event.get():
@@ -103,7 +67,6 @@ while True:
 	pygame.display.flip()
 	clock.tick(1)
 	update_stat() # O(n**2*9)
-	os.system('cls')
 
 
 
