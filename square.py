@@ -10,6 +10,7 @@ class Square(pygame.sprite.Sprite):
 
         self.surf = pygame.Surface((SIZE_CELL_X, SIZE_CELL_Y))
         self.surf.fill(RED)
+
         self.rect = self.surf.get_rect()
         self.rect = self.rect.move(x, y)
 

@@ -14,8 +14,8 @@ class Matrix:
         text = [[int(j) for j in list(i)] for i in text]
 
         self.__matrix = text
-        self.line_count = len(self.__matrix)
-        self.column_count = len(self.__matrix[0])
+        self.__line_count = len(self.__matrix)
+        self.__column_count = len(self.__matrix[0])
 
         file.close()
 
@@ -26,13 +26,32 @@ class Matrix:
 
     def draw(self, window):
 
-        for line in range(self.line_count):
-            for column in range(self.column_count):
+        for line in range(self.__line_count):
+            for column in range(self.__column_count):
                 if self.__matrix[line][column] != 0:
                     square = Square(line * SIZE_CELL_X, column * SIZE_CELL_Y)
                     square.draw(window)
 
-    def cell_count_around(self, line, column):
+    #   refreshes the matrix, transform the cells
+    def update(self):
+
+        matrix_copy = copy.deepcopy(self.__matrix)
+
+        for line in range(self.__line_count):
+            for column in range(self.__column_count):
+
+                cell_count = self.__cell_count_around(line, column)
+
+                if matrix_copy[line][column] == 0 and cell_count == 3:
+                    matrix_copy[line][column] = 1
+
+                elif matrix_copy[line][column] == 1 and (cell_count > 3 or cell_count < 2):
+                    matrix_copy[line][column] = 0
+
+        self.__matrix = copy.deepcopy(matrix_copy)
+
+    #   counts the cells number around a case
+    def __cell_count_around(self, line, column):
 
         cell_count = -1 if self.__matrix[line][column] == 1 else 0
 
@@ -43,23 +62,7 @@ class Matrix:
 
         return cell_count
 
-    def update(self):
-
-        matrix_copy = copy.deepcopy(self.__matrix)
-
-        for line in range(self.line_count):
-            for column in range(self.column_count):
-
-                cell_count = self.cell_count_around(line, column)
-
-                if matrix_copy[line][column] == 0 and cell_count == 3:
-                    matrix_copy[line][column] = 1
-
-                elif matrix_copy[line][column] == 1 and (cell_count > 3 or cell_count < 2):
-                    matrix_copy[line][column] = 0
-
-        self.__matrix = copy.deepcopy(matrix_copy)
-
+    #   checks if the values are not out dimension of the matrix
     def __out_of_dimension(self, line, column):
 
-        return line < 0 or column < 0 or line >= self.line_count or column >= self.column_count
+        return line < 0 or column < 0 or line >= self.__line_count or column >= self.__column_count
