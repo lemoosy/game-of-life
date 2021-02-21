@@ -1,6 +1,5 @@
-
-import pygame
 from pygame.locals import *
+import pygame
 
 from const import *
 from matrix import Matrix
@@ -20,12 +19,8 @@ while True:
 		if event.type == pygame.QUIT:
 			pygame.quit()
 
-	old_matrix = copy.deepcopy(matrix)
-	screen.fill(black)
-	draw_matrix()
+	window.fill(BLACK)
+	matrix.draw(window)
 	pygame.display.flip()
 	clock.tick(1)
-	update_stat()
-
-
-input()
+	matrix.update()

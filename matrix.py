@@ -53,10 +53,12 @@ class Matrix:
                 cell_count = self.cell_count_around(line, column)
 
                 if matrix_copy[line][column] == 0 and cell_count == 3:
-                    self.__matrix[line][column] = 1
+                    matrix_copy[line][column] = 1
 
                 elif matrix_copy[line][column] == 1 and (cell_count > 3 or cell_count < 2):
-                    self.__matrix[line][column] = 0
+                    matrix_copy[line][column] = 0
+
+        self.__matrix = copy.deepcopy(matrix_copy)
 
     def __out_of_dimension(self, line, column):
 
