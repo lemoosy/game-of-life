@@ -1,7 +1,6 @@
 from const import *
 from matrix import Matrix
 from square import Square
-
 import pygame
 
 
@@ -17,6 +16,11 @@ while True:
 
 		if event.type == pygame.QUIT:
 			pygame.quit()
+
+		if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+			position_mouse_x = pygame.mouse.get_pos()[0]
+			position_mouse_y = pygame.mouse.get_pos()[1]
+			matrix.switch_cell(position_mouse_x, position_mouse_y)
 
 	window.fill(BLACK)
 	matrix.draw(window)
