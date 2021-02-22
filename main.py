@@ -3,6 +3,7 @@ from const import *
 from matrix import Matrix
 from square import Square
 from text import Text
+import copy
 import pygame
 import time
 
@@ -11,7 +12,7 @@ pygame.init()
 window = pygame.display.set_mode((SIZE_WINDOW_X, SIZE_WINDOW_Y))
 matrix = Matrix()
 pause = False
-copy_matrix = matrix
+copy_matrix = copy.deepcopy(matrix)
 
 
 while True:
@@ -33,7 +34,7 @@ while True:
                 pause = False if pause else True
 
             if button == 2:
-                matrix = copy_matrix
+                matrix = copy.deepcopy(copy_matrix)
 
             if button == 3:
                 None
