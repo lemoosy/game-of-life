@@ -30,13 +30,26 @@ class Matrix:
             for column in range(self.__column_count):
 
                 if self.__matrix[line][column] == 0:
-                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,
-                                    FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, WHITE)
+                    square = Square(FIRST_POSITION_CELL_X + column * SIZE_CELL_X,
+                                    FIRST_POSITION_CELL_Y + line * SIZE_CELL_Y, WHITE)
                 else:
-                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,
-                                    FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, RED)
+                    square = Square(FIRST_POSITION_CELL_X + column * SIZE_CELL_X,
+                                    FIRST_POSITION_CELL_Y + line * SIZE_CELL_Y, RED)
 
                 square.draw(window)
+
+    def export(self):
+
+        txt = ''
+
+        for line in self.__matrix:
+            for case in line:
+                txt += str(case)
+            txt += '\n'
+
+        file = open('new_matrix.txt', 'w+')
+        file.write(txt)
+        file.close()
 
     #   refreshes the matrix, transforms the cells
     def update(self):

@@ -15,6 +15,18 @@ pause = False
 copy_matrix = copy.deepcopy(matrix)
 
 
+def draw_game():
+
+    window.fill(BLACK)
+    matrix.draw(window)
+    Text(50, 'PAUSE', RED, *FIRST_TXT_POSITION).draw(window)
+    Text(50, 'RESET', RED, *SECOND_TXT_POSITION).draw(window)
+    Text(50, 'EXPORT', RED, *THIRD_TXT_POSITION).draw(window)
+    Square(FIRST_TXT_POSITION[0] + 200, FIRST_TXT_POSITION[1], BLUE).draw(window)
+    Square(SECOND_TXT_POSITION[0] + 200, SECOND_TXT_POSITION[1], BLUE).draw(window)
+    Square(THIRD_TXT_POSITION[0] + 200, THIRD_TXT_POSITION[1], BLUE).draw(window)
+
+
 while True:
 
     for event in pygame.event.get():
@@ -32,24 +44,20 @@ while True:
 
             if button == 1:
                 pause = False if pause else True
+                draw_game()
+                pygame.display.flip()
 
             if button == 2:
                 matrix = copy.deepcopy(copy_matrix)
+                draw_game()
+                pygame.display.flip()
 
             if button == 3:
-                None
-
+                matrix.export()
 
     if not pause:
 
-        window.fill(BLACK)
-        matrix.draw(window)
-        Text(50, 'PAUSE', RED, *FIRST_TXT_POSITION).draw(window)
-        Text(50, 'RESET', RED, *SECOND_TXT_POSITION).draw(window)
-        Text(50, 'EXPORT', RED, *THIRD_TXT_POSITION).draw(window)
-        Square(FIRST_TXT_POSITION[0] + 200, FIRST_TXT_POSITION[1], BLUE).draw(window)
-        Square(SECOND_TXT_POSITION[0] + 200, SECOND_TXT_POSITION[1], BLUE).draw(window)
-        Square(THIRD_TXT_POSITION[0] + 200, THIRD_TXT_POSITION[1], BLUE).draw(window)
+        draw_game()
         pygame.display.flip()
         matrix.update()
         time.sleep(1)
