@@ -14,6 +14,6 @@ class Square(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect()
         self.rect = self.rect.move(x, y)
 
-    def draw(self, screen):
+    def draw(self, window):
 
-        screen.blit(self.surf, self.rect)
+        window.blit(self.surf, self.rect)
