@@ -30,9 +30,11 @@ class Matrix:
             for column in range(self.__column_count):
 
                 if self.__matrix[line][column] == 0:
-                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, WHITE)
+                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,
+                                    FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, WHITE)
                 else:
-                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, RED)
+                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,
+                                    FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, RED)
 
                 square.draw(window)
 
@@ -53,6 +55,16 @@ class Matrix:
                     matrix_copy[line][column] = 0
 
         self.__matrix = copy.deepcopy(matrix_copy)
+
+    def switch_cell(self, x, y):
+
+        if (FIRST_POSITION_CELL_X <= x <= FIRST_POSITION_CELL_X + SIZE_CELL_X * self.__line_count and
+                FIRST_POSITION_CELL_Y <= y <= FIRST_POSITION_CELL_Y + SIZE_CELL_Y * self.__column_count):
+
+            line = (x - FIRST_POSITION_CELL_X) // SIZE_CELL_X
+            column = (y - FIRST_POSITION_CELL_Y) // SIZE_CELL_Y
+
+            self.__matrix[line][column] = 0 if self.__matrix[line][column] == 1 else 1
 
     #   counts the cells number around a case
     def __cell_count_around(self, line, column):
