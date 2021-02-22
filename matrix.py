@@ -28,9 +28,13 @@ class Matrix:
 
         for line in range(self.__line_count):
             for column in range(self.__column_count):
-                if self.__matrix[line][column] != 0:
-                    square = Square(line * SIZE_CELL_X, column * SIZE_CELL_Y)
-                    square.draw(window)
+
+                if self.__matrix[line][column] == 0:
+                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, WHITE)
+                else:
+                    square = Square(FIRST_POSITION_CELL_X + line * SIZE_CELL_X,FIRST_POSITION_CELL_Y + column * SIZE_CELL_Y, RED)
+
+                square.draw(window)
 
     #   refreshes the matrix, transform the cells
     def update(self):
