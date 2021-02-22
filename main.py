@@ -16,7 +16,6 @@ copy_matrix = copy.deepcopy(matrix)
 
 
 def draw_game():
-
     window.fill(BLACK)
     matrix.draw(window)
     Text(50, 'PAUSE', RED, *FIRST_TXT_POSITION).draw(window)
@@ -27,37 +26,43 @@ def draw_game():
     Square(THIRD_TXT_POSITION[0] + 200, THIRD_TXT_POSITION[1], BLUE).draw(window)
 
 
-while True:
+def main():
+    global pause, matrix
 
-    for event in pygame.event.get():
+    while True:
 
-        if event.type == pygame.QUIT:
-            pygame.quit()
+        for event in pygame.event.get():
 
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
 
-            position_mouse_x = pygame.mouse.get_pos()[0]
-            position_mouse_y = pygame.mouse.get_pos()[1]
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
 
-            matrix.switch_cell(position_mouse_x, position_mouse_y)
-            button = check_click_button(position_mouse_x, position_mouse_y)
+                position_mouse_x = pygame.mouse.get_pos()[0]
+                position_mouse_y = pygame.mouse.get_pos()[1]
 
-            if button == 1:
-                pause = False if pause else True
-                draw_game()
-                pygame.display.flip()
+                matrix.switch_cell(position_mouse_x, position_mouse_y)
+                button = check_click_button(position_mouse_x, position_mouse_y)
 
-            if button == 2:
-                matrix = copy.deepcopy(copy_matrix)
-                draw_game()
-                pygame.display.flip()
+                if button == 1:
+                    pause = False if pause else True
+                    draw_game()
+                    pygame.display.flip()
 
-            if button == 3:
-                matrix.export()
+                if button == 2:
+                    matrix = copy.deepcopy(copy_matrix)
+                    draw_game()
+                    pygame.display.flip()
 
-    if not pause:
+                if button == 3:
+                    matrix.export()
 
-        draw_game()
-        pygame.display.flip()
-        matrix.update()
-        time.sleep(1)
+        if not pause:
+            draw_game()
+            pygame.display.flip()
+            matrix.update()
+            time.sleep(1)
+
+
+main()
