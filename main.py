@@ -1,9 +1,8 @@
-from pygame.locals import *
-import pygame
-
 from const import *
 from matrix import Matrix
 from square import Square
+
+import pygame
 
 
 pygame.init()
