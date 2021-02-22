@@ -38,7 +38,7 @@ class Matrix:
 
                 square.draw(window)
 
-    #   refreshes the matrix, transform the cells
+    #   refreshes the matrix, transforms the cells
     def update(self):
 
         matrix_copy = copy.deepcopy(self.__matrix)
@@ -56,6 +56,7 @@ class Matrix:
 
         self.__matrix = copy.deepcopy(matrix_copy)
 
+    #   transforms a cell if the player clicks on a case
     def switch_cell(self, x, y):
 
         if (FIRST_POSITION_CELL_X <= x <= FIRST_POSITION_CELL_X + SIZE_CELL_X * self.__line_count and
