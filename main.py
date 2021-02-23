@@ -2,6 +2,8 @@ from button import *
 from const import *
 from matrix import Matrix
 from square import Square
+
+import button
 import copy
 import pygame
 import time
@@ -21,41 +23,27 @@ default_matrix = copy.deepcopy(matrix)
 
 while True:
 
-    for event in pygame.event.get():
-
-        if event.type == pygame.QUIT:
-            pygame.quit()
-
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-
-            position_mouse_x = pygame.mouse.get_pos()[0]
-            position_mouse_y = pygame.mouse.get_pos()[1]
-
-            matrix.switch_cell(position_mouse_x, position_mouse_y)
-            button = check_click_button(position_mouse_x, position_mouse_y)
-
-            if button == 1:
-                pause = False if pause else True
-                draw_game()
-                pygame.display.flip()
-
-            if button == 2:
-                matrix = copy.deepcopy(default_matrix)
-                draw_game()
-                pygame.display.flip()
-
-            if button == 3:
-                matrix.export()
-
     if not pause:
-
         window.fill(BLUE)
         matrix.draw(window)
-        button.draw(window)
+        button.draw(window, images)
         pygame.display.flip()
-
         matrix.update()
-        time.sleep(1/3)
+        time.sleep(1 / 3)
 
 
-main()
+
+    button = button.click()
+
+    if button == 1:
+        pause = not pause
+
+    if button == 2:
+        matrix = copy.deepcopy(default_matrix)
+
+    if button == 3:
+        matrix.export()
+
+    if button == 4:
+        pygame.quit()
+        break

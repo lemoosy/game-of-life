@@ -1,5 +1,6 @@
 from const import *
 from square import Square
+
 import copy
 
 
@@ -14,7 +15,7 @@ class Matrix:
 
         auto_generate = text[len(text) - 1]
 
-        text = text[:-3]    # delete 'auto_generate', '=' and 'True'
+        text = text[:-3]  # delete 'auto_generate', '=' and 'True'
         text = [[int(j) for j in list(i)] for i in text]
 
         self.__matrix = text
@@ -35,11 +36,9 @@ class Matrix:
             for column in range(self.__column_count):
 
                 if self.__matrix[line][column] == 0:
-                    square = Square(FIRST_POSITION_CELL_X + column * SIZE_CELL_X,
-                                    FIRST_POSITION_CELL_Y + line * SIZE_CELL_Y, WHITE)
+                    square = Square(column * SIZE_CELL_X, line * SIZE_CELL_Y, WHITE)
                 else:
-                    square = Square(FIRST_POSITION_CELL_X + column * SIZE_CELL_X,
-                                    FIRST_POSITION_CELL_Y + line * SIZE_CELL_Y, RED)
+                    square = Square(column * SIZE_CELL_X, line * SIZE_CELL_Y, RED)
 
                 square.draw(window)
 
@@ -79,7 +78,6 @@ class Matrix:
 
         if (FIRST_POSITION_CELL_X <= x <= FIRST_POSITION_CELL_X + SIZE_CELL_X * self.__line_count and
                 FIRST_POSITION_CELL_Y <= y <= FIRST_POSITION_CELL_Y + SIZE_CELL_Y * self.__column_count):
-
             line = (x - FIRST_POSITION_CELL_X) // SIZE_CELL_X
             column = (y - FIRST_POSITION_CELL_Y) // SIZE_CELL_Y
 
@@ -100,4 +98,4 @@ class Matrix:
     #   checks if the values are not out dimension of the matrix
     def __out_of_dimension(self, line, column):
 
-        return line < 0 or column < 0 or line >= self.__line_count or column >= self.__column_count
+        return line < 0 or column < 0 or line >= SIZE_MATRIX_Y or column >= SIZE_MATRIX_X
