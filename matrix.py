@@ -1,8 +1,7 @@
 from const import *
 from square import Square
-
 import copy
-
+import random
 
 class Matrix:
 
@@ -19,11 +18,15 @@ class Matrix:
         text = [[int(j) for j in list(i)] for i in text]
 
         self.__matrix = text
+        self.__line_count = len(self.__matrix)
+        self.__column_count = len(self.__matrix[0])
 
         file.close()
 
-        if auto_generate:
-            None
+        if bool(auto_generate):
+            for line in range(self.__line_count):
+                for column in range(self.__column_count):
+                    self.__matrix[line][column] = random.randint(0, 1)
 
     def print(self):
 
@@ -36,9 +39,9 @@ class Matrix:
             for column in range(self.__column_count):
 
                 if self.__matrix[line][column] == 0:
-                    square = Square(column * SIZE_CELL_X, line * SIZE_CELL_Y, WHITE)
+                    square = Square(SIZE_CELL_X, SIZE_CELL_Y, column * SIZE_CELL_X, line * SIZE_CELL_Y, WHITE)
                 else:
-                    square = Square(column * SIZE_CELL_X, line * SIZE_CELL_Y, RED)
+                    square = Square(SIZE_CELL_X, SIZE_CELL_Y, column * SIZE_CELL_X, line * SIZE_CELL_Y, RED)
 
                 square.draw(window)
 
@@ -75,13 +78,13 @@ class Matrix:
 
     #   transforms a cell if the player clicks on a case
     def switch_cell(self, x, y):
-
-        if (FIRST_POSITION_CELL_X <= x <= FIRST_POSITION_CELL_X + SIZE_CELL_X * self.__line_count and
-                FIRST_POSITION_CELL_Y <= y <= FIRST_POSITION_CELL_Y + SIZE_CELL_Y * self.__column_count):
-            line = (x - FIRST_POSITION_CELL_X) // SIZE_CELL_X
-            column = (y - FIRST_POSITION_CELL_Y) // SIZE_CELL_Y
-
-            self.__matrix[line][column] = 0 if self.__matrix[line][column] == 1 else 1
+        print("no")
+        # if (FIRST_POSITION_CELL_X <= x <= FIRST_POSITION_CELL_X + SIZE_CELL_X * self.__line_count and
+        #         FIRST_POSITION_CELL_Y <= y <= FIRST_POSITION_CELL_Y + SIZE_CELL_Y * self.__column_count):
+        #     line = (x - FIRST_POSITION_CELL_X) // SIZE_CELL_X
+        #     column = (y - FIRST_POSITION_CELL_Y) // SIZE_CELL_Y
+        #
+        #     self.__matrix[line][column] = 0 if self.__matrix[line][column] == 1 else 1
 
     #   counts the cells number around a case
     def __cell_count_around(self, line, column):
@@ -98,4 +101,4 @@ class Matrix:
     #   checks if the values are not out dimension of the matrix
     def __out_of_dimension(self, line, column):
 
-        return line < 0 or column < 0 or line >= SIZE_MATRIX_Y or column >= SIZE_MATRIX_X
+        return line < 0 or column < 0 or line >= self.__line_count or column >= self.__column_count

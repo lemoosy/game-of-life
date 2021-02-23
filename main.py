@@ -1,9 +1,6 @@
-from button import *
 from const import *
 from matrix import Matrix
-from square import Square
-
-import button
+import buttons
 import copy
 import pygame
 import time
@@ -26,22 +23,23 @@ while True:
     if not pause:
         window.fill(BLUE)
         matrix.draw(window)
-        button.draw(window, images)
+        buttons.draw(window, images)
         pygame.display.flip()
         matrix.update()
         time.sleep(1 / 3)
 
-
-
-    button = button.click()
+    button = buttons.check()    # check which button has been pressed
 
     if button == 1:
+        print('1')
         pause = not pause
 
     if button == 2:
+        print('2')
         matrix = copy.deepcopy(default_matrix)
 
     if button == 3:
+        print('3')
         matrix.export()
 
     if button == 4:
