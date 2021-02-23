@@ -1,18 +1,16 @@
-from const import *
 import pygame
 
 
 class Square(pygame.sprite.Sprite):
 
-    def __init__(self, x, y, color):
+    def __init__(self, length, height, x, y, color):
 
         super(Square, self).__init__()
 
-        self.surf = pygame.Surface((SIZE_CELL_X, SIZE_CELL_Y))
-        self.surf.fill(color)
-
+        self.surf = pygame.Surface((length, height))
         self.rect = self.surf.get_rect()
         self.rect = self.rect.move(x, y)
+        self.surf.fill(color)
 
     def draw(self, window):
 

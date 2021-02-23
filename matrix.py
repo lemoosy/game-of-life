@@ -11,13 +11,18 @@ class Matrix:
 
         text = file.read()
         text = text.split()
+
+        auto_generate = text[len(text) - 1]
+
+        text = text[:-3]    # delete 'auto_generate', '=' and 'True'
         text = [[int(j) for j in list(i)] for i in text]
 
         self.__matrix = text
-        self.__line_count = len(self.__matrix)
-        self.__column_count = len(self.__matrix[0])
 
         file.close()
+
+        if auto_generate:
+            None
 
     def print(self):
 
